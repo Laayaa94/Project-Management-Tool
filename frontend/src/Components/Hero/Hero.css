@@ -1,0 +1,8 @@
+.hero {
+    height: 100vh; /* Adjust height as needed */
+    background: linear-gradient(rgba(2, 3, 49, 0.8), rgba(2, 3, 49, 0.5)), url('../../Assets/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
