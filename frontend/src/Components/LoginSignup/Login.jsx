@@ -17,39 +17,51 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, role } = formData;
-    const url = state === "Sign Up" ? '/auth/signup' : '/auth/login';
-    axios.post(url, { name, email, password, role })
+    const endpoint = state === "Sign Up" ? 'http://localhost:5000/auth/signup' : 'http://localhost:5000/auth/login';
+    axios.post(endpoint, formData)
       .then(response => {
         console.log('Success:', response.data);
-        // Handle success
+        // Handle success (e.g., store token, redirect)
+        localStorage.setItem('token', response.data.token); // Example: Store token in localStorage
+        // Redirect to /main after successful login
+        window.location.href = '/main';
       })
       .catch(error => {
-        console.error('Error:', error);
-        // Handle error
+        console.error('Error:', error.response.data);
+        alert("Invalid Email or Password");
+      })
+      .finally(() => {
+        // Reset form input fields after submission (successful or not)
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          role: ''
+        });
       });
   };
-  
 
   return (
     <div className='login-container'>
       <h1>{state}</h1>
       <form onSubmit={handleSubmit}>
-        {state === "Sign Up" ? (
+        {state === "Sign Up" && (
           <input
             type="text"
             placeholder='Name'
             name='name'
             value={formData.name}
             onChange={handleChange}
+            required
           />
-        ) : null}
+        )}
         <input
           type="email"
           placeholder='Email'
           name='email'
           value={formData.email}
           onChange={handleChange}
+          required
         />
         <input
           type="password"
@@ -57,16 +69,18 @@ const Login = () => {
           name='password'
           value={formData.password}
           onChange={handleChange}
+          required
         />
-        {state === "Sign Up" ? (
+        {state === "Sign Up" && (
           <input
             type="text"
             placeholder='Your Role'
             name='role'
             value={formData.role}
             onChange={handleChange}
+            required
           />
-        ) : null}
+        )}
         <button type='submit'>Continue</button>
       </form>
       {state === "Sign Up" ? (

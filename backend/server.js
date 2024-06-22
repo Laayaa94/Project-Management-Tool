@@ -2,23 +2,23 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRouter = require('./routes/authRoutes'); 
-const app = express();
+const dotenv = require('dotenv');
 
+dotenv.config();
+const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Database Connection With MongoDB
-mongoose.connect("mongodb+srv://prabodaharshani95:Mongo94@tasktango.ycn2ati.mongodb.net/tasktango", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  console.log("MongoDB connected successfully");
-})
-.catch(err => {
-  console.error("Error connecting to MongoDB:", err);
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB connected successfully");
+  })
+  .catch(err => {
+    console.error("Error connecting to MongoDB:", err);
+  });
+
 
 // Check database connection
 const db = mongoose.connection;
