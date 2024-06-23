@@ -11,6 +11,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
   const [tasks, setTasks] = useState([]);
   const [userId, setUserId] = useState('');
   const [isCreatingTask, setIsCreatingTask] = useState(false); // State to manage task creation status
+  const [editingTaskId, setEditingTaskId] = useState(null); // State to manage editing task id
 
   useEffect(() => {
     const decodedToken = parseJwt(token);
@@ -102,14 +103,61 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
     }
   };
 
-  const handleEditTask = (taskId) => {
-    // Implement edit task logic here (optional for your requirements)
-    console.log('Edit task:', taskId);
+  const handleEditTask = async (taskId) => {
+    setEditingTaskId(taskId);
+    const taskToEdit = tasks.find(task => task._id === taskId);
+    if (taskToEdit) {
+      setTaskTitle(taskToEdit.title);
+      setTaskDescription(taskToEdit.description);
+      setAssignedUserEmail(taskToEdit.assignedUser.email);
+      setTaskPosition(taskToEdit.position);
+    } else {
+      console.error('Task not found for editing');
+    }
+  };
+
+  const handleUpdateTask = async () => {
+    try {
+      const selectedUser = teamMembers.find(member => member.memberId.email === assignedUserEmail);
+      if (!selectedUser) {
+        console.error('Selected user not found');
+        return;
+      }
+
+      const response = await axios.put(
+        `http://localhost:5000/api/tasks/${editingTaskId}`,
+        {
+          title: taskTitle,
+          description: taskDescription,
+          assignedUser: selectedUser.memberId._id,
+          position: taskPosition,
+          projectId
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 200) {
+        fetchTasks();
+        setTaskTitle('');  // Reset task title
+        setTaskDescription('');  // Reset task description
+        setAssignedUserEmail('');  // Reset assigned user email
+        setTaskPosition('To Do');  // Reset task position
+        setEditingTaskId(null); // Reset editing task id
+      } else {
+        console.error('Error updating task');
+      }
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
   };
 
   const handleDeleteTask = async (taskId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/tasks/delete/${taskId}`, {
+      const response = await axios.delete(`http://localhost:5000/api/tasks/${taskId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -126,33 +174,48 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editingTaskId) {
+      handleUpdateTask();
+    } else {
+      handleCreateTask(e);
+    }
+  };
+
   return (
     <div>
       <h1>{projectTitle}</h1>
       <p>{projectDescription}</p>
       <h4>Deadline: {projectDeadline}</h4>
-      <form onSubmit={handleCreateTask}>
+      <form onSubmit={handleSubmit}>
         <div>
-          <input 
-            type="text" 
-            value={taskTitle} 
-            placeholder='Task Title'
-            onChange={(e) => setTaskTitle(e.target.value)} 
-            required 
+          <input
+            type="text"
+            value={taskTitle}
+            placeholder="Task Title"
+            onChange={(e) => setTaskTitle(e.target.value)}
+            required
           />
         </div>
         <div>
-          <textarea 
-            value={taskDescription} 
-            placeholder='Task Description'
-            onChange={(e) => setTaskDescription(e.target.value)} 
-            required 
+          <textarea
+            value={taskDescription}
+            placeholder="Task Description"
+            onChange={(e) => setTaskDescription(e.target.value)}
+            required
           />
         </div>
         <div>
           <label>Assign to User (Email):</label>
-          <select value={assignedUserEmail} onChange={(e) => setAssignedUserEmail(e.target.value)} required>
-            <option value="" disabled>Select a team member</option>
+          <select
+            value={assignedUserEmail}
+            onChange={(e) => setAssignedUserEmail(e.target.value)}
+            required
+          >
+            <option value="" disabled>
+              Select a team member
+            </option>
             {teamMembers.map((member) => (
               <option key={member._id} value={member.memberId.email}>
                 {member.memberId.name} ({member.memberId.email})
@@ -162,17 +225,23 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
         </div>
         <div>
           <label>Task Position:</label>
-          <select value={taskPosition} onChange={(e) => setTaskPosition(e.target.value)} required>
+          <select
+            value={taskPosition}
+            onChange={(e) => setTaskPosition(e.target.value)}
+            required
+          >
             <option value="To Do">To Do</option>
             <option value="In Progress">In Progress</option>
             <option value="Complete">Complete</option>
           </select>
         </div>
-        <button type="submit" disabled={isCreatingTask}>Create Task</button>
+        <button type="submit" disabled={isCreatingTask}>
+          {editingTaskId ? 'Update Task' : 'Create Task'}
+        </button>
       </form>
       <h2>Tasks</h2>
       <ul>
-        {tasks.map(task => (
+        {tasks.map((task) => (
           <li key={task._id}>
             <div>
               <h3>{task.title}</h3>
@@ -180,8 +249,12 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
               <p>Assigned to: {task.assignedUser.email}</p>
               <p>Position: {task.position}</p>
               <div>
-                <button onClick={() => handleEditTask(task._id)}><FaEdit /></button>
-                <button onClick={() => handleDeleteTask(task._id)}><FaTrash /></button>
+                <button onClick={() => handleEditTask(task._id)}>
+                  <FaEdit />
+                </button>
+                <button onClick={() => handleDeleteTask(task._id)}>
+                  <FaTrash />
+                </button>
               </div>
             </div>
           </li>

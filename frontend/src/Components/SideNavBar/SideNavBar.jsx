@@ -16,7 +16,16 @@ const SideNavBar = () => {
           <Link to="/tasks">Tasks</Link>
         </li>
         <li>
-          <Link to="/users">Users</Link>
+          <Link to="/tasks">Completed</Link>
+        </li>
+        <li>
+          <Link to="/tasks">To do</Link>
+        </li>
+        <li>
+          <Link to="/tasks">In Progress</Link>
+        </li>
+        <li>
+          <Link to="/users">Members</Link>
         </li>
       </ul>
     </div>
