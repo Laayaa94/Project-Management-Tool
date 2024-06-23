@@ -7,5 +7,9 @@ const authenticateUser = require('../middleware/authmiddleware'); // Adjust the 
 
 // Apply authentication middleware to project routes
 router.post('/create', authenticateUser, projectController.createProject);
+router.get('/get',  authenticateUser,projectController.getProjects);
+router.get('/get/:id',  authenticateUser,projectController.getProjectById);
+router.put('/update/:id', authenticateUser,projectController.updateProject);
+router.delete('/delete/:id', authenticateUser,projectController.deleteProject);
 
 module.exports = router;
