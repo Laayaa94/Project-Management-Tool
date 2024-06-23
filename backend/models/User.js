@@ -17,9 +17,18 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true
-  }
-  
-
+  },
+  teamMembers: [{
+    memberId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    position: {
+      type: String,
+      required: true
+    }
+  }]
 });
 
 const User = mongoose.model('User', userSchema);
