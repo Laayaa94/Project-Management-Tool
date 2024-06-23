@@ -123,7 +123,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
         console.error('Selected user not found');
         return;
       }
-
+  
       const response = await axios.put(
         `http://localhost:5000/api/tasks/${editingTaskId}`,
         {
@@ -140,12 +140,15 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
           },
         }
       );
+      
       if (response.status === 200) {
-        fetchTasks();
-        setTaskTitle('');  // Reset task title
-        setTaskDescription('');  // Reset task description
-        setAssignedUserEmail('');  // Reset assigned user email
-        setTaskPosition('To Do');  // Reset task position
+        console.log('Task updated successfully');
+        fetchTasks(); // Refresh tasks after update
+        // Reset form fields
+        setTaskTitle('');
+        setTaskDescription('');
+        setAssignedUserEmail('');
+        setTaskPosition('To Do');
         setEditingTaskId(null); // Reset editing task id
       } else {
         console.error('Error updating task');
@@ -154,7 +157,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
       console.error('Error updating task:', error);
     }
   };
-
+  
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/tasks/${taskId}`, {
