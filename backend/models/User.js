@@ -28,6 +28,14 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true
     }
+  }],
+  projects: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project'
+  }],
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task'
   }]
 });
 

@@ -1,46 +1,54 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
 
 const CreateTasks = ({ projectId, token, projectTitle, projectDescription, projectDeadline }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [assignedUserEmail, setAssignedUserEmail] = useState('');
-  const [taskPosition, setTaskPosition] = useState('To Do'); // New state for task position
-  const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [taskPosition, setTaskPosition] = useState('To Do');
+  const [teamMembers, setTeamMembers] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [userId, setUserId] = useState('');
+  const [isCreatingTask, setIsCreatingTask] = useState(false); // State to manage task creation status
 
   useEffect(() => {
-    fetchUsers();
-    fetchTasks();
-  }, []);
+    const decodedToken = parseJwt(token);
+    if (decodedToken && decodedToken.id) {
+      setUserId(decodedToken.id);
+    }
+  }, [token]);
 
-  const fetchUsers = async () => {
+  useEffect(() => {
+    if (userId) {
+      fetchTeamMembers();
+      fetchTasks();
+    }
+  }, [userId]);
+
+  const fetchTeamMembers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/get', {
-        method: 'GET',
+      const response = await axios.get(`http://localhost:5000/api/teamMembers/${userId}/get`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
-      const usersData = await response.json();
-      setUsers(usersData);
+      setTeamMembers(response.data);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('Error fetching team members:', error);
     }
   };
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/get/${projectId}`, {
-        method: 'GET',
+      const response = await axios.get(`http://localhost:5000/api/tasks/get/${projectId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
-      const tasksData = await response.json();
-      setTasks(tasksData);
+      setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
@@ -48,45 +56,74 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
 
   const handleCreateTask = async (e) => {
     e.preventDefault();
-    const selectedUser = users.find(user => user.email === assignedUserEmail);
+    // Prevent duplicate submissions
+    if (isCreatingTask) {
+      return;
+    }
+    setIsCreatingTask(true);
+
+    const selectedUser = teamMembers.find(member => member.memberId.email === assignedUserEmail);
     if (!selectedUser) {
       console.error('Selected user not found');
+      setIsCreatingTask(false);
       return;
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/tasks/create`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        `http://localhost:5000/api/tasks/create`,
+        {
           title: taskTitle,
           description: taskDescription,
-          assignedUser: selectedUser._id,
-          position: taskPosition, // Include task position
+          assignedUser: selectedUser.memberId._id,
+          position: taskPosition,
           projectId
-        })
-      });
-      if (response.ok) {
-        fetchTasks(); // Refresh tasks after creation
-        setTaskTitle('');
-        setTaskDescription('');
-        setAssignedUserEmail('');
-        setTaskPosition('To Do'); // Reset task position to default
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 200) {
+        fetchTasks();
+        setTaskTitle('');  // Reset task title
+        setTaskDescription('');  // Reset task description
+        setAssignedUserEmail('');  // Reset assigned user email
+        setTaskPosition('To Do');  // Reset task position
       } else {
         console.error('Error creating task');
       }
     } catch (error) {
       console.error('Error creating task:', error);
+    } finally {
+      setIsCreatingTask(false); // Reset isCreatingTask state after request completes
     }
   };
 
-  const handleEmailChange = (e) => {
-    const email = e.target.value;
-    setAssignedUserEmail(email);
-    setFilteredUsers(users.filter(user => user.email.toLowerCase().includes(email.toLowerCase())));
+  const handleEditTask = (taskId) => {
+    // Implement edit task logic here (optional for your requirements)
+    console.log('Edit task:', taskId);
+  };
+
+  const handleDeleteTask = async (taskId) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/tasks/delete/${taskId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 200) {
+        console.log('Task deleted successfully');
+        fetchTasks(); // Refresh tasks after deletion
+      } else {
+        console.error('Error deleting task');
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   return (
@@ -114,21 +151,14 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
         </div>
         <div>
           <label>Assign to User (Email):</label>
-          <input 
-            type="text" 
-            value={assignedUserEmail} 
-            onChange={handleEmailChange} 
-            required 
-          />
-          {filteredUsers.length > 0 && (
-            <ul className="email-suggestions">
-              {filteredUsers.map(user => (
-                <li key={user._id} onClick={() => setAssignedUserEmail(user.email)}>
-                  {user.email}
-                </li>
-              ))}
-            </ul>
-          )}
+          <select value={assignedUserEmail} onChange={(e) => setAssignedUserEmail(e.target.value)} required>
+            <option value="" disabled>Select a team member</option>
+            {teamMembers.map((member) => (
+              <option key={member._id} value={member.memberId.email}>
+                {member.memberId.name} ({member.memberId.email})
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label>Task Position:</label>
@@ -138,16 +168,22 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
             <option value="Complete">Complete</option>
           </select>
         </div>
-        <button type="submit">Create Task</button>
+        <button type="submit" disabled={isCreatingTask}>Create Task</button>
       </form>
       <h2>Tasks</h2>
       <ul>
         {tasks.map(task => (
           <li key={task._id}>
-            <h3>{task.title}</h3>
-            <p>{task.description}</p>
-            <p>Assigned to: {task.assignedUser.email}</p>
-            <p>Position: {task.position}</p>
+            <div>
+              <h3>{task.title}</h3>
+              <p>{task.description}</p>
+              <p>Assigned to: {task.assignedUser.email}</p>
+              <p>Position: {task.position}</p>
+              <div>
+                <button onClick={() => handleEditTask(task._id)}><FaEdit /></button>
+                <button onClick={() => handleDeleteTask(task._id)}><FaTrash /></button>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
@@ -156,3 +192,11 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
 };
 
 export default CreateTasks;
+
+function parseJwt(token) {
+  if (!token) return null;
+  const base64Url = token.split('.')[1];
+  if (!base64Url) return null;
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  return JSON.parse(window.atob(base64));
+}
