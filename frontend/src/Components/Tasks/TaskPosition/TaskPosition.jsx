@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Task = () => {
+const TaskPosition = ({ position }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,8 +9,8 @@ const Task = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const token = localStorage.getItem('token'); // Assuming token is stored in local storage
-        const response = await axios.get('http://localhost:5000/api/tasks/mytasks', {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:5000/api/tasks/mytasks/${position}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -25,10 +25,7 @@ const Task = () => {
     };
 
     fetchTasks();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  }, [position]); // Update tasks when position changes
 
   const handleUpdatePosition = async (taskId, newPosition) => {
     try {
@@ -61,50 +58,34 @@ const Task = () => {
     }
   };
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div>
-      <h1>My Tasks</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Owner</th>
-            <th>Deadline</th>
-            <th>Position</th>
-           
-            
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={task._id}>
-              <td>{index + 1}</td>
-              <td>{task.title}</td>
-              <td>{task.description}</td>
-              <td>{task.createdBy ? task.createdBy.name : 'N/A'}</td>
-              <td>{task.deadline ? formatDate(task.deadline) : 'Not specified'}</td>
-
-              <td>
-                <select
-                  value={task.position}
-                  onChange={(e) => handleUpdatePosition(task._id, e.target.value)}
-                >
-                  <option value="To Do">To Do</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Complete">Complete</option>
-                </select>
-              </td>
-             
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h1>My Tasks - {position}</h1>
+      <div className="task-list">
+        {tasks.map(task => (
+          <div key={task._id} className="task-item">
+            <h3>{task.title}</h3>
+            <p>{task.description}</p>
+            <p><strong>Owner:</strong> {task.createdBy ? task.createdBy.name : 'N/A'}</p>
+            <p><strong>Deadline:</strong> {task.deadline ? formatDate(task.deadline) : 'Not specified'}</p>
+            <div className="task-actions">
+              <select
+                value={task.position}
+                onChange={(e) => handleUpdatePosition(task._id, e.target.value)}
+              >
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Complete">Complete</option>
+              </select>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
-
-
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -121,4 +102,4 @@ const Task = () => {
   }
 };
 
-export default Task;
+export default TaskPosition;

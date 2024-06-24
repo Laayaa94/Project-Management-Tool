@@ -11,7 +11,7 @@ const taskSchema = new mongoose.Schema({
   },
   assignedUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User', // Reference to the User model
     required: true,
   },
   position: {
@@ -21,13 +21,20 @@ const taskSchema = new mongoose.Schema({
   },
   projectId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Project',
+    ref: 'Project', // Reference to the Project model
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User who created the task
+    required: true,
   },
-});
+  deadline: {
+    type: Date,
+    required: true,
+  },
+}, { timestamps: true });
 
-module.exports = mongoose.model('Task', taskSchema);
+const Task = mongoose.model('Task', taskSchema);
+
+module.exports = Task;

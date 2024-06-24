@@ -1,9 +1,10 @@
 import React from 'react'
-import './ToDo.css'
+import TaskPosition from '../Tasks/TaskPosition/TaskPosition'
+
 const ToDo = () => {
   return (
     <div>
-      
+      <TaskPosition position="todo"/>
     </div>
   )
 }

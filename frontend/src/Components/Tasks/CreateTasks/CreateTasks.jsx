@@ -7,6 +7,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
   const [taskDescription, setTaskDescription] = useState('');
   const [assignedUserEmail, setAssignedUserEmail] = useState('');
   const [taskPosition, setTaskPosition] = useState('To Do');
+  const [taskDeadline, setTaskDeadline] = useState(''); // State for task deadline
   const [teamMembers, setTeamMembers] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [userId, setUserId] = useState('');
@@ -78,6 +79,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
           description: taskDescription,
           assignedUser: selectedUser.memberId._id,
           position: taskPosition,
+          deadline: taskDeadline, // Pass task deadline to backend
           projectId
         },
         {
@@ -88,11 +90,13 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
         }
       );
       if (response.status === 200) {
-        fetchTasks();
-        setTaskTitle('');  // Reset task title
-        setTaskDescription('');  // Reset task description
-        setAssignedUserEmail('');  // Reset assigned user email
-        setTaskPosition('To Do');  // Reset task position
+        fetchTasks(); // Refresh tasks after creation
+        // Reset form fields
+        setTaskTitle('');
+        setTaskDescription('');
+        setAssignedUserEmail('');
+        setTaskPosition('To Do');
+        setTaskDeadline('');
       } else {
         console.error('Error creating task');
       }
@@ -111,6 +115,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
       setTaskDescription(taskToEdit.description);
       setAssignedUserEmail(taskToEdit.assignedUser.email);
       setTaskPosition(taskToEdit.position);
+      setTaskDeadline(taskToEdit.deadline ? taskToEdit.deadline.substring(0, 10) : '');
     } else {
       console.error('Task not found for editing');
     }
@@ -131,6 +136,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
           description: taskDescription,
           assignedUser: selectedUser.memberId._id,
           position: taskPosition,
+          deadline: taskDeadline, // Pass task deadline to backend
           projectId
         },
         {
@@ -149,6 +155,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
         setTaskDescription('');
         setAssignedUserEmail('');
         setTaskPosition('To Do');
+        setTaskDeadline('');
         setEditingTaskId(null); // Reset editing task id
       } else {
         console.error('Error updating task');
@@ -238,6 +245,14 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
             <option value="Complete">Complete</option>
           </select>
         </div>
+        <div>
+          <label>Task Deadline:</label>
+          <input
+            type="date"
+            value={taskDeadline}
+            onChange={(e) => setTaskDeadline(e.target.value)}
+          />
+        </div>
         <button type="submit" disabled={isCreatingTask}>
           {editingTaskId ? 'Update Task' : 'Create Task'}
         </button>
@@ -251,6 +266,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
               <p>{task.description}</p>
               <p>Assigned to: {task.assignedUser.email}</p>
               <p>Position: {task.position}</p>
+              <p>Deadline: {task.deadline ? task.deadline.substring(0, 10) : 'Not specified'}</p>
               <div>
                 <button onClick={() => handleEditTask(task._id)}>
                   <FaEdit />
@@ -268,6 +284,8 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
 };
 
 export default CreateTasks;
+
+
 
 function parseJwt(token) {
   if (!token) return null;
