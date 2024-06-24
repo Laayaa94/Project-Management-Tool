@@ -180,27 +180,13 @@ const getTaskById = async (req, res) => {
 };
 const getTaskCounts = async (req, res) => {
   try {
-    const counts = await Task.aggregate([
-      { $group: { _id: '$position', count: { $sum: 1 } } }
-    ]);
+    const userId = req.user._id; // Assuming authenticated user ID is available in req.user._id
 
-    const result = {
-      todo: 0,
-      inProgress: 0,
-      complete: 0
-    };
+    const todoCount = await Task.countDocuments({ assignedUser: userId, position: 'To Do' });
+    const inProgressCount = await Task.countDocuments({ assignedUser: userId, position: 'In Progress' });
+    const completeCount = await Task.countDocuments({ assignedUser: userId, position: 'Complete' });
 
-    counts.forEach(item => {
-      if (item._id === 'To Do') {
-        result.todo = item.count;
-      } else if (item._id === 'In Progress') {
-        result.inProgress = item.count;
-      } else if (item._id === 'Complete') {
-        result.complete = item.count;
-      }
-    });
-
-    res.json(result);
+    res.status(200).json({ todo: todoCount, inProgress: inProgressCount, complete: completeCount });
   } catch (error) {
     console.error('Error fetching task counts:', error);
     res.status(500).json({ error: 'Error fetching task counts' });

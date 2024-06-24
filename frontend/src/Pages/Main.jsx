@@ -1,96 +1,96 @@
-import React, { useEffect, useState } from 'react';
-import './Main.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Main = () => {
-  const [taskCounts, setTaskCounts] = useState({
-    todo: 0,
-    inProgress: 0,
-    complete: 0
-  });
-
-  const [projectCounts, setProjectCounts] = useState({
-    todo: 0,
-    inProgress: 0,
-    complete: 0
-  });
+  const [taskCounts, setTaskCounts] = useState({ todo: 0, inProgress: 0, complete: 0 });
+  const [projectCounts, setProjectCounts] = useState({ todo: 0, inProgress: 0, complete: 0 });
 
   useEffect(() => {
+    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+
     const fetchTaskCounts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/tasks/counts', {
+        const response = await axios.get('http://localhost:5000/api/tasks/counts', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         });
-        if (!response.ok) {
-          throw new Error('Failed to fetch task counts');
-        }
-        const data = await response.json();
-        setTaskCounts(data);
+        setTaskCounts(response.data);
       } catch (error) {
         console.error('Error fetching task counts:', error);
-        // Handle error (e.g., show error message)
       }
     };
 
     const fetchProjectCounts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/projects/counts', {
+        const response = await axios.get('http://localhost:5000/api/projects/counts', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         });
-        if (!response.ok) {
-          throw new Error('Failed to fetch project counts');
-        }
-        const data = await response.json();
-        setProjectCounts(data);
+        setProjectCounts(response.data);
       } catch (error) {
         console.error('Error fetching project counts:', error);
-        // Handle error (e.g., show error message)
       }
     };
 
-    fetchTaskCounts();
-    fetchProjectCounts();
+    if (token) {
+      fetchTaskCounts();
+      fetchProjectCounts();
+    }
   }, []);
 
+  // Data for Task Pie Chart
+  const taskData = {
+    labels: ['To Do', 'In Progress', 'Complete'],
+    datasets: [
+      {
+        label: 'Task Status',
+        data: [taskCounts.todo, taskCounts.inProgress, taskCounts.complete],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  };
+
+  // Data for Project Pie Chart
+  const projectData = {
+    labels: ['To Do', 'In Progress', 'Complete'],
+    datasets: [
+      {
+        label: 'Project Status',
+        data: [projectCounts.todo, projectCounts.inProgress, projectCounts.complete],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  };
+
   return (
-    <div className='mainPage'>
-      <div className='taskSection'>
-        <h2>Tasks</h2>
-        <div className='taskCounts'>
-          <div className='taskCategory'>
-            <h3>To Do</h3>
-            <p>{taskCounts.todo}</p>
-          </div>
-          <div className='taskCategory'>
-            <h3>In Progress</h3>
-            <p>{taskCounts.inProgress}</p>
-          </div>
-          <div className='taskCategory'>
-            <h3>Complete</h3>
-            <p>{taskCounts.complete}</p>
-          </div>
+    <div>
+      <h1>Dashboard</h1>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
+        <div style={{ width: '45%' }}>
+          <h2>Task Counts</h2>
+          <p>To Do: {taskCounts.todo}</p>
+          <p>In Progress: {taskCounts.inProgress}</p>
+          <p>Complete: {taskCounts.complete}</p>
+          <Pie data={taskData} />
         </div>
-      </div>
-      <div className='projectSection'>
-        <h2>Projects</h2>
-        <div className='projectCounts'>
-          <div className='projectCategory'>
-            <h3>To Do</h3>
-            <p>{projectCounts.todo}</p>
-          </div>
-          <div className='projectCategory'>
-            <h3>In Progress</h3>
-            <p>{projectCounts.inProgress}</p>
-          </div>
-          <div className='projectCategory'>
-            <h3>Complete</h3>
-            <p>{projectCounts.complete}</p>
-          </div>
+        <div style={{ width: '45%' }}>
+          <h2>Project Counts</h2>
+          <p>To Do: {projectCounts.todo}</p>
+          <p>In Progress: {projectCounts.inProgress}</p>
+          <p>Complete: {projectCounts.complete}</p>
+          <Pie data={projectData} />
         </div>
       </div>
     </div>
