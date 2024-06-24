@@ -85,7 +85,9 @@ const Projects = () => {
           <div className="project-container" key={project._id}>
             <h3>{project.title}</h3>
             <p>{project.description}</p>
+            <p>{project.position}</p>
             <p>Deadline: {project.deadline}</p>
+
             <div className="project-actions">
               <button onClick={() => handleEdit(project._id)}>Edit</button>
               <button onClick={() => handleDelete(project._id)}>Delete</button>

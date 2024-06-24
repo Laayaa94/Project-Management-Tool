@@ -8,6 +8,7 @@ const createProject = async (req, res) => {
   const {
      title, 
      description, 
+     position,
      deadline } = req.body;
   const createdBy = req.user; // This will be set by the authenticateUser middleware
 
@@ -15,6 +16,7 @@ const createProject = async (req, res) => {
     const newProject = await Project.create({
       title,
       description,
+      position,
       deadline,
       createdBy: createdBy._id // Use the user ID from the request
     });
@@ -69,12 +71,12 @@ const getProjectById = async (req, res) => {
 // Update a project by ID
 const updateProject = async (req, res) => {
   const { id } = req.params;
-  const { title, description, deadline } = req.body;
+  const { title, description, position,deadline } = req.body;
 
   try {
     const project = await Project.findOneAndUpdate(
       { _id: id, createdBy: req.user._id },
-      { title, description, deadline, updatedAt: Date.now() },
+      { title, description, position,deadline, updatedAt: Date.now() },
       { new: true, runValidators: true }
     );
 
@@ -111,10 +113,42 @@ const deleteProject = async (req, res) => {
   }
 };
 
+//get projects count
+
+const getProjectCounts = async (req, res) => {
+  try {
+    const counts = await Project.aggregate([
+      { $group: { _id: '$position', count: { $sum: 1 } } }
+    ]);
+
+    const result = {
+      todo: 0,
+      inProgress: 0,
+      complete: 0
+    };
+
+    counts.forEach(item => {
+      if (item._id === 'To Do') {
+        result.todo = item.count;
+      } else if (item._id === 'In Progress') {
+        result.inProgress = item.count;
+      } else if (item._id === 'Complete') {
+        result.complete = item.count;
+      }
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error fetching project counts:', error);
+    res.status(500).json({ error: 'Error fetching project counts' });
+  }
+};
+
 module.exports = {
   createProject,
   getProjects,
   getProjectById,
   updateProject,
-  deleteProject
+  deleteProject,
+  getProjectCounts,
 }

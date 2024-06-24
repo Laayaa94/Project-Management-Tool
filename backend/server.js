@@ -38,12 +38,14 @@ const projectRouter = require('./routes/projectRoutes');
 const teamMembersRouter=require('./routes/teammembersRoutes')
 const usersRouter =require('./routes/userRoutes')
 const taskRouter=require('./routes/taskRoutes')
+const notifiRouter=require('./routes/notificationroutes')
 
 app.use('/auth', authRouter); // Authentication routes
 app.use('/api/projects', projectRouter); // Project routes
 app.use('/api/teammembers', teamMembersRouter);
 app.use('/api/users', usersRouter); 
 app.use('/api/tasks',taskRouter);
+app.use('/api/notification',notifiRouter)
 
 
 

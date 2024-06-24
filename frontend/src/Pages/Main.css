@@ -1,0 +1,36 @@
+.mainPage {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+  }
+  
+  .taskSection, .projectSection {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .taskCounts, .projectCounts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .taskCategory, .projectCategory {
+    text-align: center;
+    width: 30%;
+  }
+  
+  .taskCategory h3, .projectCategory h3 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+  }
+  
+  .taskCategory p, .projectCategory p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff; /* Adjust color as needed */
+  }
+  

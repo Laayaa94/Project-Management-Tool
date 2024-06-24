@@ -20,6 +20,11 @@ const projectSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },
+  position: {
+    type: String,
+    enum: ['To Do', 'In Progress', 'Complete'],
+    default: 'To Do',
+  },
   createdAt: { 
     type: Date, 
     default: Date.now 

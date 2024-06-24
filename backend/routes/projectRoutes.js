@@ -11,5 +11,6 @@ router.get('/get',  authenticateUser,projectController.getProjects);
 router.get('/get/:id',  authenticateUser,projectController.getProjectById);
 router.put('/update/:id', authenticateUser,projectController.updateProject);
 router.delete('/delete/:id', authenticateUser,projectController.deleteProject);
+router.get('/counts', authenticateUser, projectController.getProjectCounts);
 
 module.exports = router;

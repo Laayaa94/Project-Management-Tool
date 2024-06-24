@@ -18,27 +18,3 @@
     justify-content: space-between;
     
 }
-/* NavBar.css */
-
-
-  
-
-  .navBar h1 {
-    margin: 0; /* Remove default margin */
-    font-size: 1.5rem; /* Slightly larger font size for the logo */
-  }
-  
-  .navBar button {
-    padding: 10px 20px; /* Padding inside the button */
-    background-color: #007bff; /* Blue background color for the button */
-    border: none; /* Remove default border */
-    border-radius: 4px; /* Slightly rounded corners */
-    color: white; /* White text color for the button */
-    font-size: 1rem; /* Font size for the button text */
-    cursor: pointer; /* Pointer cursor on hover */
-  }
-  
-  .navBar button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
