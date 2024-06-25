@@ -2,6 +2,7 @@
 
 const User = require('../models/User');
 
+
 // Function to fetch user by ID
 const getUserById = async (req, res) => {
   const { userId } = req.params;
@@ -48,8 +49,12 @@ const getProjectsByUserId = async (userId) => {
   }
 };
 
+
 module.exports = {
   getUserById,
   searchUserByEmail,
   getProjectsByUserId,
+ 
+ 
+
 };

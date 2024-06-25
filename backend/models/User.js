@@ -36,7 +36,11 @@ const userSchema = new mongoose.Schema({
   tasks: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'
-  }]
+  }],
+  profilePhoto: {
+    type: String,
+    default: 'uploads/images/avatar.png' // Default profile photo filename
+  }
 });
 
 const User = mongoose.model('User', userSchema);

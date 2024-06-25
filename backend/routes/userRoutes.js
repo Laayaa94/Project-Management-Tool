@@ -3,6 +3,8 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const authenticateUser = require('../middleware/authmiddleware');
 
+
+
 // Route to get projects associated with a user by userId
 router.get('/:userId/projects', async (req, res) => {
     const { userId } = req.params;
@@ -18,5 +20,9 @@ router.get('/:userId/projects', async (req, res) => {
 
 // Search for a user by email (with authentication middleware)
 router.get('/email/:email', authenticateUser, userController.searchUserByEmail);
+
+
+
+
 
 module.exports = router;

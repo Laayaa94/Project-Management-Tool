@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Login.css'
 
 const Login = () => {
-  const [state, setState] = useState("Sign Up");
+  const [state, setState] = useState("Login");
   const [formData, setFormData] = useState({
     name: '',
     email: '',

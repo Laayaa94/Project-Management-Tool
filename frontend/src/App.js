@@ -10,12 +10,13 @@ import Users from "./Components/Users/Users";
 import Completed from "./Components/Completed/Completed";
 import ToDo from "./Components/ToDo/ToDo";
 import InProgress from "./Components/InProgress/InProgress";
+import Login from './Components/LoginSignup/Login'
 
 import './App.css';
-
+const token = localStorage.getItem('token'); 
 const MainLayout = ({ children }) => (
   <div className="main-layout">
-    <SideNavBar />
+    <SideNavBar token={token}/>
     <div className="main-content">
       {children}
     </div>
@@ -29,6 +30,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login/>} />
+
           <Route path="/main" element={<MainLayout><Main /></MainLayout>} />
           <Route path="/projects" element={<MainLayout><Projects /></MainLayout>} />
           <Route path="/tasks" element={<MainLayout><Tasks /></MainLayout>} />
