@@ -1,86 +1,158 @@
-.default {
-    padding: 20px;
-  }
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+
+.project-container {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  background-color: #f0f0f0; /* Default background color */
+}
+
+.project-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-container:nth-child(5n+1) {
+  background-color: #ffcdd24a; /* First color */
+}
+
+.project-container:nth-child(5n+2) {
+  background-color: #BBDEFB; /* Second color */
+}
+
+.project-container:nth-child(5n+3) {
+  background-color: #c8e6c9a0; /* Third color */
+}
+
+.project-container:nth-child(5n+4) {
+  background-color: #ffecb37d; /* Fourth color */
+}
+
+.project-container:nth-child(5n+5) {
+  background-color: #ffdca1bb; /* Fifth color */
+}
+.project-container.default {
+  background: linear-gradient(to bottom right, #0074e1d6, #33333363); /* Default background color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-container h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #022e58;
+}
+
+.project-container p {
+  font-size: 14px;
+  margin: 3px 0;
+  font-weight: 400;
+  color: rgba(43, 41, 41, 0.8);
+}
+
+.position-deadline {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.position-deadline p {
+  font-size: 12px;
+}
+
+.position-deadline p.deadline {
+  color: #e53935; /* Red color for deadline */
+}
+
+.project-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.project-actions svg {
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.project-actions svg:hover {
+  color: #000;
+}
+
+.project-actions button {
+  background-color: #0074e1;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.project-actions button:hover {
+  background-color: #36a2eb;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 400px;
+  max-width: 90%;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.default button {
+  width: 125px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color:#0074e1;
+  color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+
   
-  .default button {
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .default button:hover {
-    background: #0056b3;
-  }
-  
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .project-container {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .project-container h3 {
-    margin-top: 0;
-  }
-  
-  .project-actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .project-actions button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .project-actions button:hover {
-    background: #0056b3;
-  }
-  
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-  }
-  
-  .close-button {
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
+
+}

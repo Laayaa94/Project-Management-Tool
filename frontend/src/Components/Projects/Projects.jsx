@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CreateProjects from './CreateProjects/CreateProjects';
 import './Projects.css';
 import CreateTasks from '../Tasks/CreateTasks/CreateTasks';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -85,12 +86,13 @@ const Projects = () => {
           <div className="project-container" key={project._id}>
             <h3>{project.title}</h3>
             <p>{project.description}</p>
-            <p>{project.position}</p>
-            <p>Deadline: {project.deadline}</p>
-
+            <div className="position-deadline">
+              <p>Status: {project.position}</p>
+              <p className="deadline">Deadline: {project.deadline}</p>
+            </div>
             <div className="project-actions">
-              <button onClick={() => handleEdit(project._id)}>Edit</button>
-              <button onClick={() => handleDelete(project._id)}>Delete</button>
+              <FaEdit onClick={() => handleEdit(project._id)} />
+              <FaTrash onClick={() => handleDelete(project._id)} />
               <button onClick={() => handleAddTask(project)}>Assign Tasks</button>
             </div>
           </div>
