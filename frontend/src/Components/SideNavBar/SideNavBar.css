@@ -1,18 +1,65 @@
-.sidenavBar{
-    max-width: 300px;
-    background-color: #4b6d9e;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-.profile-img-and-email{
+/* SideNavBar.css */
+
+.sidenavBar {
+    width: 200px;
+    position: fixed;
+    top: 50px; /* Adjust based on the height of the NavBar */
+    left: 0;
+    height: calc(100% - 50px); /* Adjust based on the height of the NavBar */
+    background-color: #333;
+    padding-top: 20px;
+    overflow-y: auto;
+  }
+  
+  .profile-img-and-email {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.profile-img-and-email img{
+    margin-bottom: 20px;
+  }
+  
+  .profile-img-and-email img {
     width: 60px;
     height: 60px;
-    object-fit: cover;
     border-radius: 50%;
-}
+    margin-bottom: 5px;
+  }
+  
+  .profile-img-and-email h3 {
+    color: #f0f8ff;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .sidenavBar ul {
+    list-style: none;
+    padding: 0;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  
+  .sidenavBar ul li {
+    width: 80%;
+    margin: 5px 0;
+    text-align: center;
+  }
+  
+  .sidenavBar ul li a {
+    display: block;
+    width: 100%;
+    padding:10px 20px;
+    color: #f0f8ff;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .sidenavBar ul li a:hover {
+    background-color: #0074E1;
+    color: #fff;
+  }
+  

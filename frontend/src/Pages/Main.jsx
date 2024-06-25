@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
+import './Main.css'
+import { FaAngleDoubleRight, FaBook, FaCheck, FaCheckCircle, FaCheckDouble, FaClock, FaNetworkWired, FaPenFancy, FaPencilAlt, FaProjectDiagram, FaTags, FaTasks, FaUserEdit, FaUserSlash, FaUsers } from 'react-icons/fa';
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -74,25 +75,48 @@ const Main = () => {
   };
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className='main'>
       
-      <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
-        <div style={{ width: '45%' }}>
-          <h2>Task Counts</h2>
-          <p>To Do: {taskCounts.todo}</p>
-          <p>In Progress: {taskCounts.inProgress}</p>
-          <p>Complete: {taskCounts.complete}</p>
-          <Pie data={taskData} />
+      <div className="task-project-progress-all">
+        <div className="task-project-progress">
+          <h1>To Do <FaPencilAlt/> </h1>
+        <div className="project-task">
+        <p> <div className="fabook"> <FaBook/></div>Projects:{projectCounts.todo}</p>
+        <p> <div className="fatasks"> <FaTasks/></div>Tasks: {taskCounts.todo}</p>
+          
         </div>
-        <div style={{ width: '45%' }}>
-          <h2>Project Counts</h2>
-          <p>To Do: {projectCounts.todo}</p>
-          <p>In Progress: {projectCounts.inProgress}</p>
-          <p>Complete: {projectCounts.complete}</p>
-          <Pie data={projectData} />
+        </div>
+
+        <div className="task-project-progress">
+          <h1>In Progress <FaClock/></h1>
+          <div className="project-task">
+          <p> <div className="fabook"> <FaBook/></div>Projects: {projectCounts.inProgress}</p>
+          <p> <div className="fatasks"> <FaTasks/></div>Tasks: {taskCounts.inProgress}</p>
+          </div>
+       
+        </div>
+
+        <div className="task-project-progress">
+          <h1>Complete <FaCheckCircle/></h1>
+          <div className="project-task">
+          <p> <div className="fabook"> <FaBook/></div>Projects: {projectCounts.complete}</p>
+         <p> <div className="fatasks"> <FaTasks/></div>Tasks: {taskCounts.complete}</p>
+          </div>
         </div>
       </div>
+
+      <div className="task-project-progress-analysis">
+        <div className="charts">
+          <h1>Projects</h1>
+        <Pie data={projectData} />
+        </div>
+        <div className="charts">
+          <h1>Tasks</h1>
+        <Pie data={taskData} />
+          </div>
+      </div>
+
+  
     </div>
   );
 };

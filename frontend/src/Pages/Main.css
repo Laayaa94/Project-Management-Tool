@@ -1,36 +1,106 @@
-.mainPage {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
-  }
+.main {
+  padding: 20px;
+
+}
+
+.task-project-progress-all {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+ 
+}
+
+.task-project-progress {
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the headers and paragraphs within the task-project-progress divs */
+.task-project-progress h1 {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.task-project-progress p {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+/* Light shades for the status boxes with vibrant icons */
+.task-project-progress:nth-child(1) {
+  background-color: #FFCDD2; /* Light Red for To Do */
+}
+
+.task-project-progress:nth-child(1) h1 {
+  color: #D32F2F; /* Vibrant Red for To Do Icon */
+}
+
+.task-project-progress:nth-child(2) {
+  background-color: #BBDEFB; /* Light Blue for In Progress */
+}
+
+.task-project-progress:nth-child(2) h1 {
+  color: #1976D2; /* Vibrant Blue for In Progress Icon */
+}
+
+.task-project-progress:nth-child(3) {
+  background-color: #C8E6C9; /* Light Green for Complete */
+}
+
+.task-project-progress:nth-child(3) h1 {
+  color: #388E3C; /* Vibrant Green for Complete Icon */
+}
+
+/* Hover effect */
+.task-project-progress:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.task-project-progress-analysis {
+  display: flex;
+  justify-content: space-around;
+}
+
+.charts {
+  width: 30%;
+}
+.charts h1{
+  color: #022e58;
+  font-size: 20px;
+ text-align: center;
+}
+.project-task{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   
-  .taskSection, .projectSection {
-    flex: 1;
-    margin: 0 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .taskCounts, .projectCounts {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .taskCategory, .projectCategory {
-    text-align: center;
-    width: 30%;
-  }
-  
-  .taskCategory h3, .projectCategory h3 {
-    margin-bottom: 5px;
-    font-size: 1.2rem;
-  }
-  
-  .taskCategory p, .projectCategory p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #007bff; /* Adjust color as needed */
-  }
-  
+}
+.project-task p{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(0, 0, 0, 0.671);
+  font-weight: 700;
+}
+.project-task .fatasks{
+  width: 20px;
+  height: 20px;
+  background-color: rgb(25, 39, 132);
+  padding: 5px;
+  border-radius: 15px;
+  color: aliceblue;
+}
+.project-task .fabook{
+  width: 20px;
+  height: 20px;
+  background-color: #0d4b09;
+  padding: 5px;
+  border-radius: 15px;
+  color: aliceblue;
+}

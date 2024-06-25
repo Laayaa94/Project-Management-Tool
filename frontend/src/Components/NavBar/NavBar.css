@@ -2,6 +2,7 @@
 
 .navBar {
     position: fixed;
+    box-sizing: border-box;
     top: 0;
     width: 100%;
     background-color: #333;
@@ -21,8 +22,8 @@
   }
   
   .logo {
-    height: 50px;
-    margin-left: 78px;
+    height: 40px;
+    margin-left: 40px;
     padding: 5px 0;
     width: auto;
     cursor: pointer;
@@ -60,10 +61,5 @@
   
   .notifiIcon:hover {
     color: #ccc;
-  }
-  
-  /* Add some top margin to the content to prevent it from being hidden under the fixed navbar */
-  .main-content {
-    margin-top: 70px; /* Adjust this value based on the height of your navbar */
   }
   
