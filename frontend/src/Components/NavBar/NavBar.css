@@ -1,20 +1,69 @@
-.navBar{
+/* NavBar.css */
+
+.navBar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it stays above other content */
+  }
   
-        width: 100%;
-        height: 60px;
-        position: fixed;
-        top: 0;
-        left: 0;
-   
-        color: white;
-        padding: 10px 20px;
-        z-index: 1000;
-      
-}
-.navBar nav{
-    
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo {
+    height: 50px;
+    margin-left: 78px;
+    padding: 5px 0;
+    width: auto;
+    cursor: pointer;
+
+  }
+  
+  .nav-actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    
-}
+  }
+  
+  .nav-actions button {
+    background-color: #0074E1;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-actions button:hover {
+    background-color: #4661D1;
+  }
+  
+  .notifiIcon {
+    color: white;
+    font-size: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .notifiIcon:hover {
+    color: #ccc;
+  }
+  
+  /* Add some top margin to the content to prevent it from being hidden under the fixed navbar */
+  .main-content {
+    margin-top: 70px; /* Adjust this value based on the height of your navbar */
+  }
+  

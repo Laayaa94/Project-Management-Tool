@@ -1,6 +1,7 @@
+// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
   const [state, setState] = useState("Login");
@@ -22,10 +23,8 @@ const Login = () => {
     axios.post(endpoint, formData)
       .then(response => {
         console.log('Success:', response.data);
-        // Handle success (e.g., store token, redirect)
         localStorage.setItem('token', response.data.token); // Example: Store token in localStorage
-        // Redirect to /main after successful login
-        window.location.href = '/main';
+        window.location.href = '/main'; // Redirect to /main after successful login
       })
       .catch(error => {
         console.error('Error:', error.response.data);
@@ -43,9 +42,10 @@ const Login = () => {
   };
 
   return (
-    <div className='login-container'>
-      <h1>{state}</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='login-page'>
+     <div className="login-container">
+     <form onSubmit={handleSubmit}>
+        <h1>{state}</h1>
         {state === "Sign Up" && (
           <input
             type="text"
@@ -75,7 +75,7 @@ const Login = () => {
         {state === "Sign Up" && (
           <input
             type="text"
-            placeholder='Your Role'
+            placeholder='Your Position'
             name='role'
             value={formData.role}
             onChange={handleChange}
@@ -84,7 +84,8 @@ const Login = () => {
         )}
         <button type='submit'>Continue</button>
       </form>
-      {state === "Sign Up" ? (
+    <div className="login-bottom-part">
+    {state === "Sign Up" ? (
         <p>
           Already have an account? 
           <span onClick={() => { setState("Login") }}>Login here</span>
@@ -95,6 +96,8 @@ const Login = () => {
           <span onClick={() => { setState("Sign Up") }}>Click here</span>
         </p>
       )}
+    </div>
+     </div>
     </div>
   );
 }

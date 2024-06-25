@@ -1,6 +1,11 @@
 import React from 'react'
 import './Hero.css'
+import { useNavigate } from 'react-router-dom';
 const Hero = () => {
+  const navigate = useNavigate();
+  const handleStartNow=()=>{
+   navigate('/login')
+  }
   return (
     <div className='hero'>
       <div className="heroLeft">
@@ -10,7 +15,7 @@ const Hero = () => {
         <p>Streamline workflow, boost collaboration, meet deadlines.
           <br /> From tasks to progress, everything to succeed.
           <br />  Transform your work.</p>
-          <button>Start Now</button>
+          <button onClick={handleStartNow}>Start Now</button>
 
       </div>
       
