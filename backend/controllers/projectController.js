@@ -117,32 +117,21 @@ const deleteProject = async (req, res) => {
 
 const getProjectCounts = async (req, res) => {
   try {
-    const counts = await Project.aggregate([
-      { $group: { _id: '$position', count: { $sum: 1 } } }
-    ]);
+    const userId = req.user._id; // Assuming authenticated user ID is available in req.user._id
 
-    const result = {
-      todo: 0,
-      inProgress: 0,
-      complete: 0
-    };
+    const todoCount = await Project.countDocuments({ createdBy: userId, position: 'To Do' });
+    const inProgressCount = await Project.countDocuments({ createdBy: userId, position: 'In Progress' });
+    const completeCount = await Project.countDocuments({ createdBy: userId, position: 'Complete' });
 
-    counts.forEach(item => {
-      if (item._id === 'To Do') {
-        result.todo = item.count;
-      } else if (item._id === 'In Progress') {
-        result.inProgress = item.count;
-      } else if (item._id === 'Complete') {
-        result.complete = item.count;
-      }
-    });
-
-    res.json(result);
+    res.status(200).json({ todo: todoCount, inProgress: inProgressCount, complete: completeCount });
   } catch (error) {
     console.error('Error fetching project counts:', error);
     res.status(500).json({ error: 'Error fetching project counts' });
   }
 };
+
+
+
 
 module.exports = {
   createProject,

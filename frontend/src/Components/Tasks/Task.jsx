@@ -98,7 +98,7 @@ const Task = () => {
             <th>Description</th>
             <th>Owner</th>
             <th>Deadline</th>
-            <th>Position</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './SideNavBar.css';
-import Avatar from '../../Assets/avatar.png';
+import Avatar from '../../Assets/my red.jpg';
 
 const SideNavBar = ({ token }) => {
   const [userEmail, setUserEmail] = useState('');

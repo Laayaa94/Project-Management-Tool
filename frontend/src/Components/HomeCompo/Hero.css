@@ -12,17 +12,18 @@
 
 .heroLeft{
     margin-left: 100px;
+    margin-top: 50px;
    
 }
 .heroLeft h3{
     color: aliceblue;
     font-weight: 700;
-    font-size: 27px;
+    font-size: 28px;
     
 }
 .heroLeft h1{
     color: #0074E1;
-    font-size: 50px;
+    font-size: 60px;
     font-weight: 900;
 }
 .heroLeft p{

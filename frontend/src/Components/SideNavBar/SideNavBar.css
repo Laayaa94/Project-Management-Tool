@@ -6,7 +6,7 @@
     top: 50px; /* Adjust based on the height of the NavBar */
     left: 0;
     height: calc(100% - 50px); /* Adjust based on the height of the NavBar */
-    background-color: #333;
+    background: linear-gradient(to bottom, #4e4949, rgba(11, 32, 86, 0.8));
     padding-top: 20px;
     overflow-y: auto;
    
@@ -24,11 +24,12 @@
     height: 60px;
     border-radius: 50%;
     margin-bottom: 5px;
+    object-fit: cover;
   }
   
   .profile-img-and-email h3 {
     color: #f0f8ff;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
   }
   
