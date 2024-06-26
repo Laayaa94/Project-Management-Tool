@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
-
+import './CreateTasks.css'
 const CreateTasks = ({ projectId, token, projectTitle, projectDescription, projectDeadline }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
@@ -194,11 +194,16 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
   };
 
   return (
-    <div>
+    <div className='create-task-container '>
+     <div className="left-Part-create-task">
+      <div className="left-part-create-task-top">
       <h1>{projectTitle}</h1>
-      <p>{projectDescription}</p>
-      <h4>Deadline: {projectDeadline}</h4>
+      <h4>{projectDescription}</h4>
+      <p>Deadline: {projectDeadline}</p>
+      </div>
+      <div className="left-part-create-task-bottom">
       <form onSubmit={handleSubmit}>
+      <h2> {editingTaskId ? 'Update Task' : 'Assign Task'}</h2>
         <div>
           <input
             type="text"
@@ -217,14 +222,20 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
           />
         </div>
         <div>
-          <label>Assign to User (Email):</label>
+          <input
+            type="date"
+            value={taskDeadline}
+            onChange={(e) => setTaskDeadline(e.target.value)}
+          />
+        </div>
+        <div>
           <select
             value={assignedUserEmail}
             onChange={(e) => setAssignedUserEmail(e.target.value)}
             required
           >
             <option value="" disabled>
-              Select a team member
+              Assign a team member
             </option>
             {teamMembers.map((member) => (
               <option key={member._id} value={member.memberId.email}>
@@ -234,7 +245,6 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
           </select>
         </div>
         <div>
-          <label>Task Position:</label>
           <select
             value={taskPosition}
             onChange={(e) => setTaskPosition(e.target.value)}
@@ -245,40 +255,40 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
             <option value="Complete">Complete</option>
           </select>
         </div>
-        <div>
-          <label>Task Deadline:</label>
-          <input
-            type="date"
-            value={taskDeadline}
-            onChange={(e) => setTaskDeadline(e.target.value)}
-          />
-        </div>
+        
         <button type="submit" disabled={isCreatingTask}>
           {editingTaskId ? 'Update Task' : 'Create Task'}
         </button>
       </form>
-      <h2>Tasks</h2>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task._id}>
-            <div>
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
-              <p>Assigned to: {task.assignedUser.email}</p>
-              <p>Position: {task.position}</p>
-              <p>Deadline: {task.deadline ? task.deadline.substring(0, 10) : 'Not specified'}</p>
-              <div>
-                <button onClick={() => handleEditTask(task._id)}>
-                  <FaEdit />
-                </button>
-                <button onClick={() => handleDeleteTask(task._id)}>
-                  <FaTrash />
-                </button>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      </div>
+     </div>
+     <div className="right-part-create-tasks">
+  <h2>Tasks</h2>
+  <ul>
+    {tasks.map((task) => (
+      <li key={task._id}>
+        <div className="task-item">
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+          <p>Assigned to: <span style={{ fontWeight: 'bold', color: '#0074e1' }}>{task.assignedUser.name}</span></p>
+          <div className="todo-deadline-displaye-flex">
+            <p><strong>Position:</strong> {task.position}</p>
+            <p style={{ color: 'tomato' }}><strong>Deadline:</strong> {task.deadline ? task.deadline.substring(0, 10) : 'Not specified'}</p>
+          </div>
+          <div className="edit-delete-icon-assign-tasks-display-flex">
+            <button onClick={() => handleEditTask(task._id)}>
+              <FaEdit />
+            </button>
+            <button onClick={() => handleDeleteTask(task._id)}>
+              <FaTrash />
+            </button>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
     </div>
   );
 };

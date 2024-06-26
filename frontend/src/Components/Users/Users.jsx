@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Users.css';
 
 const Users = () => {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -98,8 +99,9 @@ const Users = () => {
   };
 
   return (
-    <div>
-      {/* Search Members by Email */}
+    <div className="container">
+      <h2>Team Members</h2>
+      <div className="member-search-and-add">
       <section>
         <h2>Search Members by Email</h2>
         <input
@@ -110,7 +112,7 @@ const Users = () => {
         />
         <button onClick={handleSearch}>Search</button>
         {searchResult && (
-          <div>
+          <div className="search-result">
             <p>Name: {searchResult.name}</p>
             <p>Email: {searchResult.email}</p>
             <p>Role: {searchResult.role}</p>
@@ -135,6 +137,10 @@ const Users = () => {
         />
         <button onClick={handleAddTeamMember}>Add Team Member</button>
       </section>
+      <div className="member-img">
+        <img src="" alt="" />
+      </div>
+      </div>
 
       {/* Display Team Members */}
       <section>

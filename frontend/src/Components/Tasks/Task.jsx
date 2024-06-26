@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import './Tasks.css'
 const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -61,52 +61,7 @@ const Task = () => {
     }
   };
 
-  return (
-    <div>
-      <h1>My Tasks</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Owner</th>
-            <th>Deadline</th>
-            <th>Position</th>
-           
-            
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={task._id}>
-              <td>{index + 1}</td>
-              <td>{task.title}</td>
-              <td>{task.description}</td>
-              <td>{task.createdBy ? task.createdBy.name : 'N/A'}</td>
-              <td>{task.deadline ? formatDate(task.deadline) : 'Not specified'}</td>
-
-              <td>
-                <select
-                  value={task.position}
-                  onChange={(e) => handleUpdatePosition(task._id, e.target.value)}
-                >
-                  <option value="To Do">To Do</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Complete">Complete</option>
-                </select>
-              </td>
-             
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-
-
-
-  function formatDate(dateString) {
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
     let month = date.getMonth() + 1;
@@ -118,7 +73,64 @@ const Task = () => {
       day = `0${day}`; // Add leading zero if day is single digit
     }
     return `${year}-${month}-${day}`;
-  }
+  };
+
+  const getDeadlineColor = (deadlineDate) => {
+    const today = new Date();
+    const deadline = new Date(deadlineDate);
+    if (deadline < today) {
+      return 'deadline-today';
+    } else if (deadline <= new Date(today.setDate(today.getDate() + 7))) {
+      return 'deadline-upcoming';
+    } else {
+      return 'deadline-normal';
+    }
+  };
+
+  return (
+    <div className="task-container">
+      <h1>My Tasks</h1>
+      <table className="task-table">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Owner</th>
+            <th>Deadline</th>
+            <th>Position</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks.map((task, index) => (
+            <tr key={task._id}>
+              <td className="index">{index + 1}</td>
+              <td>{task.title}</td>
+              <td>{task.description}</td>
+              <td>{task.createdBy ? task.createdBy.name : 'N/A'}</td>
+              <td className={getDeadlineColor(task.deadline)}>
+                {task.deadline ? formatDate(task.deadline) : 'Not specified'}
+              </td>
+              <td>
+              <select
+                  className="position-select"
+                  style={{ backgroundColor: task.position === 'To Do' ? '#e74d3cb0' : 
+                    task.position === 'In Progress' ? '#3498dba5' : 
+                    task.position === 'Complete' ? '#2ecc70b5' : '#f0f0f0' }}
+                  value={task.position}
+                  onChange={(e) => handleUpdatePosition(task._id, e.target.value)}
+                >
+                  <option value="To Do">To Do</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default Task;

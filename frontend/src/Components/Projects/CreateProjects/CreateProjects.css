@@ -1,0 +1,67 @@
+.create-project-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  
+}
+
+.left-container-create-project img {
+  width: 100%;
+  height: auto;
+  max-width: 175px; /* Adjust this value as needed */
+  border-radius: 10px; /* Optional: to add some rounded corners to the image */
+}
+
+.right-container-create-project {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.right-container-create-project h2 {
+  margin-bottom: 20px;
+  color: #0074e1;
+  font-weight: 900;
+}
+
+.right-container-create-project form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  
+}
+
+
+.right-container-create-project form input,
+.right-container-create-project form select,
+.right-container-create-project form button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: gray;
+  
+}
+.right-container-create-project form input:focus,
+.right-container-create-project form textarea:focus,
+.right-container-create-project form select:focus {
+  outline: 1px solid #0074e1;
+}
+
+
+
+.right-container-create-project form button {
+  background-color: #0074e1;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.right-container-create-project form button:hover {
+  background-color: #005bb5;
+}

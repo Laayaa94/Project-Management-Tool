@@ -25,7 +25,8 @@
 }
 
 .project-container:nth-child(5n+2) {
-  background-color: #BBDEFB; /* Second color */
+  background-color: #BBDEFB;
+  background-color: #ffdca1bb; /* Second color */
 }
 
 .project-container:nth-child(5n+3) {
@@ -37,7 +38,7 @@
 }
 
 .project-container:nth-child(5n+5) {
-  background-color: #ffdca1bb; /* Fifth color */
+  background-color: #BBDEFB; /* Fifth color */
 }
 .project-container.default {
   background: linear-gradient(to bottom right, #0074e1d6, #33333363); /* Default background color */

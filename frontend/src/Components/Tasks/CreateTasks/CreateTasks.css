@@ -1,0 +1,245 @@
+/* Modal content styling */
+.assign-tasks-modal-content {
+  background-color: #fff; /* Match the background color */
+  padding: 20px; /* Match the padding */
+  border-radius: 10px; /* Match the border radius */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Match the box shadow */
+  position: relative; /* Ensure it's positioned relatively */
+  width: 65%; /* Ensure it doesn't get too wide */
+  max-height: 90vh; /* Make sure it doesn't overflow vertically */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.assign-task-close-button {
+  position: absolute; /* Position it absolutely within the modal */
+  top: 10px; /* Align to the top */
+  right: 5px; /* Align to the right */
+  background-color: transparent; /* Transparent background */
+  border: none; /* Remove the border */
+  font-size: 20px; /* Font size for the close button */
+  cursor: pointer; /* Pointer cursor */
+  color: #555; /* Match the color */
+  transition: color 0.3s; /* Smooth transition for color */
+}
+
+
+.assign-task-close-button:hover {
+  color: #0074e1; /* Change color on hover */
+}
+
+/* General container for the task creation */
+.create-task-container {
+  display: flex;
+  position: relative; /* Make the container relative to position child elements */
+  margin: 0 auto; /* Center the container */
+  height: 90vh; /* Ensure container height */
+  overflow: hidden; /* Prevent the container from scrolling */
+}
+
+/* Left part of the create task component */
+.left-Part-create-task {
+  width: 300px; /* Fixed width for the left part */
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  background: #f9f9f9; /* Light background color for the left part */
+  position: absolute; /* Absolute position within the container */
+  top: 0;
+  bottom: 0;
+  left: 0;
+ 
+
+}
+
+/* Top section of the left part with the project details and background image */
+.left-part-create-task-top {
+  flex: 1;
+  background: linear-gradient(to bottom, rgba(11, 32, 86, 0.9), rgba(34, 38, 41, 0.6)), url('../../../Assets/assign-tasks.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px; /* Optional: add rounded corners */
+}
+
+.left-part-create-task-top h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  color: #0074E1;
+  font-weight: 900;
+}
+
+.left-part-create-task-top p {
+  color: tomato;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.left-part-create-task-top h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #0074E1;
+}
+
+/* Bottom section of the left part with the task creation form */
+.left-part-create-task-bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+}
+
+.left-part-create-task-bottom h2 {
+  margin-bottom: 10px;
+  color: #0074e1;
+  font-weight: 900;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* Form styles */
+.left-part-create-task-bottom form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.left-part-create-task-bottom form div {
+  margin-bottom: 5px;
+  width: 80%;
+}
+
+.left-part-create-task-bottom form input,
+.left-part-create-task-bottom form textarea,
+.left-part-create-task-bottom form select,
+.left-part-create-task-bottom form button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: gray;
+}
+
+.left-part-create-task-bottom form input:focus,
+.left-part-create-task-bottom form textarea:focus,
+.left-part-create-task-bottom form select:focus {
+  outline: 1px solid #0074e1;
+}
+
+.left-part-create-task-bottom form button {
+  background-color: #0074e1;
+  color: white;
+  cursor: pointer;
+  border: none;
+  width: 50%;
+}
+
+.left-part-create-task-bottom form button:hover {
+  background-color: #005bb5;
+}
+
+.right-part-create-tasks {
+  flex: 1;
+  border-left: 1px solid #0074e1;
+  margin-left: 320px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 5px;
+  height: 100%; /* Ensure full height within the container */
+  background: #fff; /* Background color for the right part */
+}
+
+.right-part-create-tasks h2 {
+  margin-bottom: 10px;
+  color: #0074e1;
+  font-weight: 900;
+  text-align: center;
+}
+
+.right-part-create-tasks ul {
+  list-style: none;
+  padding: 0;
+
+}
+
+.right-part-create-tasks li {
+  background: #f1f1f1;
+  width: 75%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.right-part-create-tasks .task-item {
+  
+  position: relative; /* Ensure correct positioning for absolute elements */
+}
+.right-part-create-tasks .task-item h3{
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #022e58;
+  
+}
+.right-part-create-tasks .task-item p{
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(43, 41, 41, 0.8);
+
+}
+
+.todo-deadline-displaye-flex {
+  display: flex; /* Ensure flex layout */
+  justify-content: space-between; /* Space items evenly */
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.todo-deadline-displaye-flex p {
+  margin: 0; /* Remove default margins */
+}
+
+.edit-delete-icon-assign-tasks-display-flex {
+  display: flex; /* Ensure flex layout */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.edit-delete-icon-assign-tasks-display-flex button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.edit-delete-icon-assign-tasks-display-flex button svg {
+  font-size: 16px;
+  color: #555;
+  transition: color 0.3s; /* Color for edit and delete icons */
+}
+
+.edit-delete-icon-assign-tasks-display-flex button:hover svg {
+  color: #000; /* Darker color on hover */
+}
+
+.right-part-create-tasks li:nth-child(2n+2) {
+  background-color: #BBDEFB; /* Second color */
+}
+
+.right-part-create-tasks li:nth-child(3n+3) {
+  background-color: #ffecb37d;
+   /* Third color */
+}
+
+.right-part-create-tasks li:nth-child(4n+4) {
+  background-color: #c8e6c9a0; /* Fourth color */
+}
+
+.right-part-create-tasks li:nth-child(5n+5) {
+  background-color: #ffdca1bb; /* Fifth color */
+}

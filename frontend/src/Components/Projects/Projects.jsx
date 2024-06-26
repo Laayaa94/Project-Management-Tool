@@ -74,13 +74,19 @@ const Projects = () => {
   const handleCloseModal = () => {
     setIsProjectModalOpen(false);
     setIsTaskModalOpen(false);
+    setEditingProject(null); // Reset editingProject when modal is closed
+  };
+
+  const openCreateProjectModal = () => {
+    setEditingProject(null); // Reset editingProject to null
+    setIsProjectModalOpen(true);
   };
 
   return (
     <div>
       <div className="project-grid">
         <div className="default project-container">
-          <button onClick={() => setIsProjectModalOpen(true)}>Create Project</button>
+          <button onClick={openCreateProjectModal}>Create Project</button>
         </div>
         {projects.map(project => (
           <div className="project-container" key={project._id}>
@@ -108,8 +114,8 @@ const Projects = () => {
       )}
       {isTaskModalOpen && selectedProject && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="close-button" onClick={handleCloseModal}>X</button>
+          <div className="modal-content assign-tasks-modal-content">
+            <button className="close-button assign-task-close-button" onClick={handleCloseModal}>X</button>
             <CreateTasks 
               projectId={selectedProject._id} 
               token={token} 
