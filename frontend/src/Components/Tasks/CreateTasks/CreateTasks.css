@@ -10,21 +10,23 @@
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.assign-task-close-button {
+.assign-task-close-button-container {
   position: absolute; /* Position it absolutely within the modal */
   top: 10px; /* Align to the top */
-  right: 5px; /* Align to the right */
+  right: 50px; /* Align to the right */
   background-color: transparent; /* Transparent background */
   border: none; /* Remove the border */
   font-size: 20px; /* Font size for the close button */
   cursor: pointer; /* Pointer cursor */
   color: #555; /* Match the color */
-  transition: color 0.3s; /* Smooth transition for color */
+  transition: color 0.3s; 
+  z-index: 1000;
 }
 
 
-.assign-task-close-button:hover {
-  color: #0074e1; /* Change color on hover */
+.assign-task-close-button-container:hover {
+  color: rgba(128, 128, 128, 0.466); /* Change color on hover */
+  color: black;
 }
 
 /* General container for the task creation */
@@ -124,11 +126,6 @@
   color: gray;
 }
 
-.left-part-create-task-bottom form input:focus,
-.left-part-create-task-bottom form textarea:focus,
-.left-part-create-task-bottom form select:focus {
-  outline: 1px solid #0074e1;
-}
 
 .left-part-create-task-bottom form button {
   background-color: #0074e1;
@@ -176,17 +173,17 @@
  
 }
 
-.right-part-create-tasks .task-item {
+.right-part-create-tasks .task-item-createTasks {
   
   position: relative; /* Ensure correct positioning for absolute elements */
 }
-.right-part-create-tasks .task-item h3{
+.right-part-create-tasks .task-item-createTasks h3{
   font-size: 18px;
   margin-bottom: 5px;
   color: #022e58;
   
 }
-.right-part-create-tasks .task-item p{
+.right-part-create-tasks .task-item-createTasks p{
   font-size: 12px;
   font-weight: 400;
   color: rgba(43, 41, 41, 0.8);
@@ -211,7 +208,7 @@
 }
 
 .edit-delete-icon-assign-tasks-display-flex button {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
   margin-left: 10px;
@@ -225,6 +222,7 @@
 
 .edit-delete-icon-assign-tasks-display-flex button:hover svg {
   color: #000; /* Darker color on hover */
+
 }
 
 .right-part-create-tasks li:nth-child(2n+2) {

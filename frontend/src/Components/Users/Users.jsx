@@ -102,26 +102,12 @@ const Users = () => {
     <div className="container">
       <h2>Team Members</h2>
       <div className="member-search-and-add">
-      <section>
-        <h2>Search Members by Email</h2>
-        <input
-          type="text"
-          value={emailSearch}
-          onChange={(e) => setEmailSearch(e.target.value)}
-          placeholder="Enter email"
-        />
-        <button onClick={handleSearch}>Search</button>
-        {searchResult && (
-          <div className="search-result">
-            <p>Name: {searchResult.name}</p>
-            <p>Email: {searchResult.email}</p>
-            <p>Role: {searchResult.role}</p>
-          </div>
-        )}
-      </section>
+     
+     <div className="sections">
+    
 
       {/* Add Team Member */}
-      <section>
+      <section className='form'>
         <h2>Add Team Member</h2>
         <input
           type="text"
@@ -133,26 +119,41 @@ const Users = () => {
           type="text"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
-          placeholder="Enter position"
+          placeholder="Enter the Role"
         />
         <button onClick={handleAddTeamMember}>Add Team Member</button>
       </section>
-      <div className="member-img">
-        <img src="" alt="" />
-      </div>
+      <section className='search'>
+        <h2>Search Team Member</h2>
+        <input
+          type="text"
+          value={emailSearch}
+          onChange={(e) => setEmailSearch(e.target.value)}
+          placeholder="Enter Email"
+        />
+        <button onClick={handleSearch}>Search</button>
+        {searchResult && (
+          <div className="search-result">
+            <p>Name: {searchResult.name}</p>
+            <p>Email: {searchResult.email}</p>
+            <p>Title: {searchResult.role}</p>
+          </div>
+        )}
+      </section>
+     </div>
+     
       </div>
 
       {/* Display Team Members */}
       <section>
-        <h2>Team Members</h2>
         <table>
           <thead>
             <tr>
-              <th>#</th>
+              <th></th>
               <th>Name</th>
               <th>Email</th>
+              <th>Title</th>
               <th>Role</th>
-              <th>Position</th>
               <th>Actions</th>
             </tr>
           </thead>

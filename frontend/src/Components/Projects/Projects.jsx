@@ -115,7 +115,7 @@ const Projects = () => {
       {isTaskModalOpen && selectedProject && (
         <div className="modal-overlay">
           <div className="modal-content assign-tasks-modal-content">
-            <button className="close-button assign-task-close-button" onClick={handleCloseModal}>X</button>
+            <button className="close-button assign-task-close-button-container" onClick={handleCloseModal}>X</button>
             <CreateTasks 
               projectId={selectedProject._id} 
               token={token} 

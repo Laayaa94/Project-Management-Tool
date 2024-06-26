@@ -9,4 +9,11 @@ router.get('/mynotifications', authenticate, notificationController.getMyNotific
 // Delete a notification by ID
 router.delete('/:notificationId', authenticate, notificationController.deleteNotification);
 
+
+router.get('/unread-count', authenticate, notificationController.getUnreadNotificationsCount);
+
+
+// Mark notifications as read
+router.post('/markasread', authenticate, notificationController.markNotificationsAsRead);
+
 module.exports = router;

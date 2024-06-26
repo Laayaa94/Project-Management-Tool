@@ -41,8 +41,33 @@ const deleteNotification = async (req, res) => {
   }
 };
 
+
+const getUnreadNotificationsCount = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const unreadCount = await Notification.countDocuments({ userId, read: false });
+    res.status(200).json({ unreadCount });
+  } catch (error) {
+    console.error('Error fetching unread notifications count:', error);
+    res.status(500).json({ message: 'Failed to fetch unread notifications count' });
+  }
+};
+
+const markNotificationsAsRead = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    await Notification.updateMany({ userId, read: false }, { read: true });
+    res.status(200).json({ message: 'Notifications marked as read' });
+  } catch (error) {
+    console.error('Error marking notifications as read:', error);
+    res.status(500).json({ error: 'Error marking notifications as read' });
+  }
+};
+
 module.exports = {
   createNotification,
   getMyNotifications,
   deleteNotification,
+  getUnreadNotificationsCount,
+  markNotificationsAsRead
 };

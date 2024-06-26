@@ -16,34 +16,34 @@
     
   }
   
-  .task-item {
+  .task-item-position {
 
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  .task-item:hover{
+  .task-item-position:hover{
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   }
-  .task-item h3 {
+  .task-item-position h3 {
     font-size: 16px;
     margin-bottom: 10px;
     color: #022e58c8;
   }
   
-  .task-item p {
+  .task-item-position p {
     margin-bottom: 10px;
     color: #555;
     font-size: 12px;
   }
-  .task-item .owner-title-display-flex{
+  .task-item-position .owner-title-display-flex{
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .task-item .owner-title-display-flex p{
+  .task-item-position .owner-title-display-flex p{
     color: #0074E1;
     font-size: 12px;
   }

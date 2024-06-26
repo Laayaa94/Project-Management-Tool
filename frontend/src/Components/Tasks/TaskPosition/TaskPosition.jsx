@@ -80,7 +80,7 @@ const TaskPosition = ({ position }) => {
         {tasks.map(task => (
           <div
           key={task._id}
-          className="task-item"
+          className="task-item-position"
           style={{ backgroundColor: getGradientBackground(task.position) }}
         >
           <div className="owner-title-display-flex">

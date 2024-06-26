@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Notifications.css'
+import {  FaCut, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
+
+
 const Notifications = ({ onClose }) => {
   const [notifications, setNotifications] = useState([]);
   const token = localStorage.getItem('token');
@@ -31,13 +34,17 @@ const Notifications = ({ onClose }) => {
 
   return (
     <div className="notification">
+      <div className="topic-button-notifi">
+        <h4>Your Notifications</h4>
+      <button onClick={onClose}>Close</button>
+      </div>
       {notifications.map(notification => (
-        <div key={notification._id}>
+        <div key={notification._id} className='display-flex-notification'>
           <p>{notification.message}</p>
-          <button onClick={() => handleDelete(notification._id)}>Delete</button>
+          <button onClick={() => handleDelete(notification._id)} className='removeX'>X</button>
         </div>
       ))}
-      <button onClick={onClose}>Close</button>
+      
     </div>
   );
 

@@ -1,65 +1,83 @@
-/* NavBar.css */
-
 .navBar {
-    position: fixed;
-    box-sizing: border-box;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it stays above other content */
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .logo {
-    height: 40px;
-    margin-left: 40px;
-    padding: 5px 0;
-    width: auto;
-    cursor: pointer;
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  width: 100%;
+  background-color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it stays above other content */
+}
 
-  }
-  
-  .nav-actions {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-actions button {
-    background-color: #0074E1;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .nav-actions button:hover {
-    background-color: #4661D1;
-  }
-  
-  .notifiIcon {
-    color: white;
-    font-size: 24px;
-    margin-right: 20px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  .notifiIcon:hover {
-    color: #ccc;
-  }
-  
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  height: 40px;
+  margin-left: 40px;
+  padding: 5px 0;
+  width: auto;
+  cursor: pointer;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.nav-actions button {
+  background-color: #0074E1;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.nav-actions button:hover {
+  background-color: #4661D1;
+}
+
+.notifiIcon {
+  color: white;
+  font-size: 22px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.notifiIcon:hover {
+  color: #ccc;
+}
+
+.notificationBell {
+  display: flex;
+  position: relative;
+}
+
+.notificationCount {
+  position: absolute;
+  top: -8px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}

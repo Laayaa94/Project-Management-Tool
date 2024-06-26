@@ -267,7 +267,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
   <ul>
     {tasks.map((task) => (
       <li key={task._id}>
-        <div className="task-item">
+        <div className="task-item-createTasks">
           <h3>{task.title}</h3>
           <p>{task.description}</p>
           <p>Assigned to: <span style={{ fontWeight: 'bold', color: '#0074e1' }}>{task.assignedUser.name}</span></p>
