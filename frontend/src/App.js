@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from "./Pages/Home";
 import Main from "./Pages/Main";
@@ -24,10 +24,13 @@ const MainLayout = ({ children }) => (
 );
 
 function App() {
+
+
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar/>
+        <NavBar />
+        
         
         <Routes>
           <Route path="/" element={<Home />} />

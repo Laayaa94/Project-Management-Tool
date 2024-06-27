@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './NavBar.css';
-import { FaBell } from 'react-icons/fa';
+import { FaAlignJustify,  FaBell } from 'react-icons/fa';
 import Notification from '../Notifications/Notifications';
 import logo from '../../Assets/taskMaster.png';
 
@@ -77,6 +77,8 @@ const NavBar = () => {
     navigate('/');
   };
 
+ 
+
   return (
     <div className='navBar'>
       <nav>
@@ -91,6 +93,8 @@ const NavBar = () => {
           ) : (
             <button onClick={handleLogin}>Login</button>
           )}
+          <FaAlignJustify className='navbar-topnavbar' />
+
         </div>
       </nav>
       {showNotification && <Notification onClose={closeNotification} />}

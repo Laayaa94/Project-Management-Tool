@@ -97,6 +97,7 @@ const CreateTasks = ({ projectId, token, projectTitle, projectDescription, proje
         setAssignedUserEmail('');
         setTaskPosition('To Do');
         setTaskDeadline('');
+        alert("Task created succussfully")
       } else {
         console.error('Error creating task');
       }

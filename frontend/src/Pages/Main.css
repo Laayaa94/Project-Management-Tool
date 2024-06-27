@@ -104,3 +104,38 @@
   border-radius: 15px;
   color: aliceblue;
 }
+
+
+@media(max-width:1024px){
+  .main{
+    padding: 15px;
+  }
+  .task-project-progress-all{
+   align-items: center;
+   gap: 10px;
+   margin-left: -30px;
+   
+  }
+  .task-project-progress h1 {
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+  
+  .task-project-progress p {
+    margin: 5px 0;
+    font-size: 10px;
+  }
+  .project-task .fatasks{
+    width: 10px;
+    height: 10px;
+    padding: 3px;
+  }
+  .project-task .fabook{
+    width: 10px;
+    height: 10px;
+    padding: 3px;
+  }
+  .charts {
+    width: 50%;
+  }
+}

@@ -81,3 +81,15 @@ nav {
   font-size: 12px;
   font-weight: bold;
 }
+.navbar-topnavbar{
+  color: #f9f9f9;
+  margin-right: 20px;
+  font-size: 18px;
+  display: none;
+  cursor: pointer;
+}
+@media(max-width:1024px){
+  .navbar-topnavbar{
+    display: block;
+  }
+}
